@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Mana Nizamabad Pasupu</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<header class="navbar">
+    <div class="logo-area">
+        <img src="picsart 1.png" alt="Logo">
+        <span>Mana Nizamabad Pasupu</span>
+    </div>
+
+    <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#products">Products</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<div style="height:90px;"></div>
+
+<section style="max-width:900px;margin:auto;padding:30px;">
+
+<h2 style="margin-bottom:20px;">MY ACCOUNT</h2>
+<div class="right-icons">
+
+  <!-- CART -->
+  <div onclick="toggleCart()">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count" id="cartCount">0</span>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="profile-box" onclick="toggleProfile()">
+    <i class="fas fa-user-circle" style="font-size:22px;"></i>
+  </div>
+
+</div>
+
+<!-- PROFILE DROPDOWN -->
+<div class="profile-dropdown" id="profileDropdown">
+  <p id="userName">Guest</p>
+  <p id="userEmail" style="font-size:13px;color:gray;"></p>
+  <hr>
+  <button onclick="logoutUser()" class="logout-btn">Logout</button>
+</div>
+
+<!-- GOOGLE LOGIN -->
+<button onclick="loginWithGoogle()" style="
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#000;
+  color:#fff;
+  border:none;
+  padding:12px 20px;
+  border-radius:6px;
+  cursor:pointer;
+  margin-bottom:20px;
+">
+  <i class="fab fa-google"></i> Login with Google Account
+</button>
+<!-- PHONE LOGIN -->
+<div id="phoneSection" style="margin-top:20px;">
+  <input id="phoneNumber" placeholder="+91XXXXXXXXXX"
+    style="width:100%;padding:12px;margin-bottom:10px;border:1px solid #ccc;border-radius:6px;">
+
+  <div id="recaptcha-container"></div>
+
+  <button onclick="sendOTP()" style="
+    width:100%;
+    padding:12px;
+    background:#ffb703;
+    border:none;
+    border-radius:6px;
+    font-weight:600;
+    cursor:pointer;
+  ">
+    Send OTP
+  </button>
+
+  <input id="otp" placeholder="Enter OTP"
+    style="width:100%;padding:12px;margin-top:15px;border:1px solid #ccc;border-radius:6px;">
+
+  <button onclick="verifyOTP()" style="
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    background:#168a00;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    font-weight:600;
+    cursor:pointer;
+  ">
+    Verify OTP
+  </button>
+</div>
+
+<!-- INFO BAR -->
+<div style="
+    background:#e0b75c;
+    color:#fff;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:30px;
+">
+⚠️ Please log in or register to complete your purchase.
+</div>
+
+<!-- LOGIN / SIGNUP SWITCH -->
+<div style="display:flex;margin-bottom:30px;">
+<button onclick="showLogin()" id="loginTab" style="
+    flex:1;padding:14px;background:#000;color:#fff;border:none;font-weight:600;
+">Login</button>
+
+<button onclick="showSignup()" id="signupTab" style="
+    flex:1;padding:14px;background:#eee;border:none;
+">Sign Up</button>
+</div>
+
+<!-- LOGIN FORM -->
+<form id="loginForm" style="max-width:450px;margin:auto;">
+<input id="loginEmail" type="email" placeholder="Email" required
+ style="width:100%;padding:12px;margin-bottom:15px;border:1px solid #ccc;border-radius:6px;">
+
+<input id="loginPassword" type="password" placeholder="Password" required
+ style="width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-radius:6px;">
+
+<button type="button" onclick="login()" style="
+    width:100%;padding:14px;background:#168a00;color:#fff;border:none;
+    font-weight:600;border-radius:6px;cursor:pointer;
+">Sign In</button>
+</form>
+
+<!-- SIGNUP FORM -->
+<form id="signupForm" style="max-width:450px;margin:auto;display:none;">
+<input id="signupName" placeholder="Username" required
+ style="width:100%;padding:12px;margin-bottom:15px;border:1px solid #ccc;border-radius:6px;">
+
+<input id="signupEmail" type="email" placeholder="Email" required
+ style="width:100%;padding:12px;margin-bottom:15px;border:1px solid #ccc;border-radius:6px;">
+
+<input id="signupPassword" type="password" placeholder="Create Password" required
+ style="width:100%;padding:12px;margin-bottom:15px;border:1px solid #ccc;border-radius:6px;">
+
+<input id="signupPhone" placeholder="Phone *" required
+ style="width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-radius:6px;">
+
+<button type="button" onclick="signup()" style="
+    width:100%;padding:14px;background:#168a00;color:#fff;border:none;
+    font-weight:600;border-radius:6px;cursor:pointer;
+">Sign Up</button>
+</form>
+
+</section>
+
+<footer class="footer">
+<div class="footer-bottom">
+© 2026 Mana Nizamabad Pasupu. All rights reserved.
+</div>
+</footer>
+
+<!-- ================= FIREBASE AUTH SCRIPT ================= -->
+<script type="module">
+
+import { auth } from "./js/firebase.js";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const provider = new GoogleAuthProvider();
+
+/* GOOGLE LOGIN */
+window.loginWithGoogle = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      alert("Welcome " + result.user.displayName);
+      window.location.href = "cart.html";
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
+
+/* EMAIL LOGIN */
+window.login = () => {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      alert("Login Successful");
+      window.location.href = "cart.html";
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
+
+/* SIGNUP */
+window.signup = () => {
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      alert("Account Created Successfully");
+      window.location.href = "cart.html";
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
+
+/* LOGOUT */
+window.logout = () => {
+  signOut(auth).then(() => {
+    alert("Logged Out");
+  });
+};
+
+/* AUTO REDIRECT IF ALREADY LOGGED IN */
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    window.location.href = "cart.html";
+  }
+});
+
+</script>
+
+<!-- TAB SWITCH SCRIPT -->
+<script>
+function showLogin() {
+  document.getElementById("loginForm").style.display = "block";
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("loginTab").style.background = "#000";
+  document.getElementById("loginTab").style.color = "#fff";
+  document.getElementById("signupTab").style.background = "#eee";
+  document.getElementById("signupTab").style.color = "#000";
+}
+
+function showSignup() {
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("signupForm").style.display = "block";
+  document.getElementById("signupTab").style.background = "#000";
+  document.getElementById("signupTab").style.color = "#fff";
+  document.getElementById("loginTab").style.background = "#eee";
+  document.getElementById("loginTab").style.color = "#000";
+}
+</script>
+<script type="module" src="auth.js"></script>
+<script type="module">
+
+import { auth } from "./firebase.js";
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const dropdown = document.getElementById("profileDropdown");
+
+window.toggleProfile = () => {
+  dropdown.style.display =
+    dropdown.style.display === "block" ? "none" : "block";
+};
+
+window.logoutUser = () => {
+  signOut(auth).then(() => {
+    alert("Logged out successfully");
+    window.location.href = "login.html";
+  });
+};
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById("userName").innerText =
+      user.displayName || "User";
+
+    document.getElementById("userEmail").innerText =
+      user.email || user.phoneNumber;
+  } else {
+    document.getElementById("userName").innerText = "Guest";
+    document.getElementById("userEmail").innerText = "";
+  }
+});
+
+</script>
+
+</body>
+</html>

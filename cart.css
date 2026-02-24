@@ -1,0 +1,129 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f6f6f6;
+    padding: 30px;
+}
+
+/* STEPS */
+.steps {
+    background: #1f5edb;
+    color: #fff;
+    padding: 18px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+.steps span {
+    margin-right: 20px;
+}
+.steps .active {
+    text-decoration: underline;
+}
+
+/* LAYOUT */
+.cart-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+/* TABLE */
+.cart-table {
+    width: 100%;
+    background: #fff;
+    border-collapse: collapse;
+}
+
+.cart-table th, .cart-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.product-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+}
+
+.cart-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border: 1px solid #eee;
+    border-radius: 6px;
+}
+
+.remove {
+    cursor: pointer;
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+/* QTY */
+.qty-box {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.qty-box button {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: none;
+    background: #ffb703;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+/* COUPON */
+.coupon-box {
+    margin-top: 20px;
+}
+.coupon-box input {
+    padding: 10px;
+    width: 200px;
+}
+.coupon-box button {
+    padding: 10px 14px;
+    background: #d18b00;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+/* TOTALS */
+.cart-right {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.cart-right .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.cart-right .total {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.ship-text {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.checkout-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background: #ffb703;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}

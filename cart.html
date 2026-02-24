@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shopping Cart | Mana Nizamabad Pasupu</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="cart.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<header class="navbar">
+
+  <div class="logo-area">
+    <img src="picsart 1.png" alt="Logo">
+    <span>Mana Nizamabad Pasupu</span>
+  </div>
+
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#products">Products</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <!-- RIGHT SIDE -->
+  <div style="display:flex;align-items:center;gap:20px;position:relative;">
+
+    <!-- PROFILE ICON -->
+    <div onclick="toggleProfile()" style="cursor:pointer;">
+      <i class="fas fa-user-circle" style="font-size:24px;"></i>
+    </div>
+
+    <!-- PROFILE DROPDOWN -->
+    <div id="profileDropdown" style="
+      position:absolute;
+      top:45px;
+      right:0;
+      background:#fff;
+      box-shadow:0 10px 30px rgba(0,0,0,0.1);
+      padding:15px;
+      border-radius:8px;
+      width:200px;
+      display:none;
+      z-index:999;
+    ">
+      <p id="userName" style="font-weight:600;">Guest</p>
+      <p id="userEmail" style="font-size:13px;color:gray;"></p>
+      <hr>
+      <button onclick="logoutUser()" style="
+        width:100%;
+        padding:8px;
+        background:#ffb703;
+        border:none;
+        border-radius:6px;
+        cursor:pointer;
+        font-weight:600;
+      ">
+        Logout
+      </button>
+    </div>
+
+  </div>
+
+</header>
+
+<div style="height:90px;"></div>
+
+<!-- STEPS -->
+<div class="steps">
+  <span class="active">SHOPPING CART</span>
+  <span>→ CHECKOUT</span>
+  <span>→ ORDER COMPLETE</span>
+</div>
+
+<!-- CART -->
+<div class="cart-wrapper">
+
+  <div class="cart-left">
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="cartTable"></tbody>
+    </table>
+  </div>
+
+  <div class="cart-right">
+    <h3>Cart Totals</h3>
+
+    <div class="row">
+      <span>Subtotal</span>
+      <span id="subTotal">₹0</span>
+    </div>
+
+    <hr>
+
+    <div class="row total">
+      <span>Total</span>
+      <span id="grandTotal">₹0</span>
+    </div>
+
+    <button id="checkoutBtn" class="checkout-btn">
+      Proceed to Checkout
+    </button>
+
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-bottom">
+    © 2026 Mana Nizamabad Pasupu. All rights reserved.
+  </div>
+</footer>
+
+<!-- CART LOGIC -->
+<script src="cart-page.js"></script>
+
+<!-- AUTH + PROFILE LOGIC -->
+<script type="module">
+
+import { auth } from "./firebase.js";
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const dropdown = document.getElementById("profileDropdown");
+const checkoutBtn = document.getElementById("checkoutBtn");
+
+/* TOGGLE PROFILE */
+window.toggleProfile = () => {
+  dropdown.style.display =
+    dropdown.style.display === "block" ? "none" : "block";
+};
+
+/* LOGOUT */
+window.logoutUser = () => {
+  signOut(auth).then(() => {
+    alert("Logged out successfully");
+    window.location.href = "login.html";
+  });
+};
+
+/* AUTH CHECK */
+onAuthStateChanged(auth, (user) => {
+
+  if (user) {
+
+    document.getElementById("userName").innerText =
+      user.displayName || "User";
+
+    document.getElementById("userEmail").innerText =
+      user.email || user.phoneNumber;
+
+    checkoutBtn.onclick = () => {
+      window.location.href = "checkout.html";
+    };
+
+  } else {
+
+    checkoutBtn.onclick = () => {
+      window.location.href = "login.html";
+    };
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
