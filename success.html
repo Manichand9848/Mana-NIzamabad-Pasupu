@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Order Success | Mana Nizamabad Pasupu</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:Poppins;
+background:#f5f5f5;
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.box{
+background:#fff;
+padding:40px;
+border-radius:12px;
+width:100%;
+max-width:500px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+h1{
+color:#1aa31a;
+margin-bottom:10px;
+}
+
+p{
+color:#555;
+}
+
+.order{
+text-align:left;
+margin-top:25px;
+font-size:14px;
+}
+
+.order div{
+margin-bottom:10px;
+}
+
+.products{
+background:#fafafa;
+padding:15px;
+border-radius:8px;
+margin-top:10px;
+}
+
+.btn{
+margin-top:25px;
+padding:12px 20px;
+background:#ffb703;
+border:none;
+cursor:pointer;
+border-radius:6px;
+font-weight:600;
+width:100%;
+}
+
+.order-id{
+font-size:13px;
+color:#777;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Payment Successful 🎉</h1>
+
+<p>Your order has been placed successfully.</p>
+
+<div class="order" id="orderDetails"></div>
+
+<button class="btn" onclick="goHome()">Back to Home</button>
+
+</div>
+
+<script type="module">
+
+import { db } from "./firebase.js";
+import { addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+let order = JSON.parse(localStorage.getItem("lastOrder"));
+
+/* If no order found */
+
+if(!order){
+document.getElementById("orderDetails").innerHTML = `
+<div>Order information not found.</div>
+`;
+throw new Error("No order data");
+}
+
+/* Generate Order ID */
+
+let orderId = "ORD" + Math.floor(Math.random()*1000000);
+
+/* Build product list */
+
+let productsHTML = "";
+
+order.products.forEach(p=>{
+
+productsHTML += `
+<div>
+${p.name} (Qty: ${p.qty}) - ₹${p.price * p.qty}
+</div>
+`;
+
+});
+
+/* Render Order Details */
+
+document.getElementById("orderDetails").innerHTML = `
+
+<div class="order-id">Order ID: ${orderId}</div>
+
+<div><b>Name:</b> ${order.name}</div>
+
+<div><b>Phone:</b> ${order.phone}</div>
+
+<div><b>Address:</b> ${order.address}</div>
+
+<hr>
+
+<div><b>Products:</b></div>
+
+<div class="products">
+${productsHTML}
+</div>
+
+<hr>
+
+<div><b>Total Paid:</b> ₹${order.total}</div>
+
+`;
+
+/* Save Order in Firebase */
+
+try{
+
+await addDoc(collection(db,"orders"),{
+
+orderId:orderId,
+customerName:order.name,
+phone:order.phone,
+address:order.address,
+products:order.products,
+amount:order.total,
+paymentStatus:"paid",
+createdAt:new Date()
+
+});
+
+}catch(error){
+
+console.error("Firebase order save error:",error);
+
+}
+
+/* Clear cart */
+
+localStorage.removeItem("cart");
+localStorage.removeItem("lastOrder");
+
+</script>
+
+<script>
+
+function goHome(){
+window.location.href="index.html";
+}
+
+</script>
+
+</body>
+
+</html>

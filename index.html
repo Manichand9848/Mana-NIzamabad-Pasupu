@@ -1,264 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mana Nizamabad Pasupu</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<title>Mana Nizamabad Pasupu</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
 <!-- ================= NAVBAR ================= -->
+
 <header class="navbar">
-    <div class="logo-area">
-        <img src="picsart 1.png" alt="Logo">
-        <span>Mana Nizamabad Pasupu</span>
-    </div>
 
-    <nav class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#products">Products</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact</a>
-    </nav>
+<div class="menu-icon" onclick="toggleMenu()">
+<i class="fas fa-bars"></i>
+</div>
 
-    <div class="right-icons" onclick="toggleCart()">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-count" id="cartCount">0</span>
-    </div>
+<div class="logo-area">
+<img src="picsart 1.png" alt="Logo">
+<span>Mana Nizamabad Pasupu</span>
+</div>
+
+<nav class="nav-links" id="navMenu">
+<a href="#home">Home</a>
+<a href="#products">Products</a>
+<a href="about.html">About Us</a>
+<a href="contact.html">Contact</a>
+</nav>
+
+<div class="right-icons" onclick="toggleCart()">
+<i class="fas fa-shopping-cart"></i>
+<span class="cart-count" id="cartCount">0</span>
+</div>
+
 </header>
 
+
 <!-- ================= HERO ================= -->
+
 <section class="hero" id="home">
-    <div class="overlay"></div>
-    <div class="content">
-        <h1>Pure Nizamabad Pasupu</h1>
-        <p>Pure • Natural • Direct from Farmers</p>
-    </div>
+
+<div class="overlay"></div>
+
+<div class="content">
+<h1>Pure Nizamabad Pasupu</h1>
+<p>Pure • Natural • Direct from Farmers</p>
+</div>
+
 </section>
 
-<!-- ================= PROCESS (AUTO SCROLL) ================= -->
+
+<!-- ================= PROCESS ================= -->
+
 <section class="white-section">
 
-    <div class="process-text">
-        <h2>From Farm to Table..</h2>
-        <p>Witness our traditional cultivation, processing, and quality preparation methods</p>
-    </div>
+<div class="process-text">
+<h2>From Farm to Table..</h2>
+<p>Witness our traditional cultivation, processing, and quality preparation methods</p>
+</div>
 
-    <div class="process-scroller">
-        <div class="process-track">
-            <!-- ORIGINAL -->
-            <div class="process-img"><img src="4a98c3de-b04c-4635-8ba8-1eae31f99cc1.png"></div>
-            <div class="process-img"><img src="c783cc25-f891-4a09-9f6f-9d7ab1f09042.png"></div>
-            <div class="process-img"><img src="669d3956-fdf8-442d-b5c6-78e366c3416b.png"></div>
-            <div class="process-img"><img src="6bafb1d6-1c8e-4466-914e-6b08256577c1.png"></div>
-            <div class="process-img"><img src="2847c523-322a-433c-830e-8256f5ed8904.png"></div>
+<div class="process-scroller">
 
-            <!-- DUPLICATE FOR LOOP -->
-            <div class="process-img"><img src="4a98c3de-b04c-4635-8ba8-1eae31f99cc1.png"></div>
-            <div class="process-img"><img src="c783cc25-f891-4a09-9f6f-9d7ab1f09042.png"></div>
-            <div class="process-img"><img src="669d3956-fdf8-442d-b5c6-78e366c3416b.png"></div>
-            <div class="process-img"><img src="6bafb1d6-1c8e-4466-914e-6b08256577c1.png"></div>
-            <div class="process-img"><img src="2847c523-322a-433c-830e-8256f5ed8904.png"></div>
-        </div>
-    </div>
+<div class="process-track">
+
+<div class="process-img"><img src="4a98c3de-b04c-4635-8ba8-1eae31f99cc1.png"></div>
+<div class="process-img"><img src="c783cc25-f891-4a09-9f6f-9d7ab1f09042.png"></div>
+<div class="process-img"><img src="669d3956-fdf8-442d-b5c6-78e366c3416b.png"></div>
+<div class="process-img"><img src="6bafb1d6-1c8e-4466-914e-6b08256577c1.png"></div>
+<div class="process-img"><img src="2847c523-322a-433c-830e-8256f5ed8904.png"></div>
+
+<div class="process-img"><img src="4a98c3de-b04c-4635-8ba8-1eae31f99cc1.png"></div>
+<div class="process-img"><img src="c783cc25-f891-4a09-9f6f-9d7ab1f09042.png"></div>
+<div class="process-img"><img src="669d3956-fdf8-442d-b5c6-78e366c3416b.png"></div>
+<div class="process-img"><img src="6bafb1d6-1c8e-4466-914e-6b08256577c1.png"></div>
+<div class="process-img"><img src="2847c523-322a-433c-830e-8256f5ed8904.png"></div>
+
+</div>
+
+</div>
+
 </section>
+
 
 <!-- ================= PRODUCTS ================= -->
+
 <section class="products-section" id="products">
 
-    <h2 class="products-title">Our Premium Products</h2>
+<h2 class="products-title">Our Premium Products</h2>
 
-    <div class="products-grid">
+<div class="products-grid">
 
-        <div class="product-card">
-            <img src="pasupu image.png" alt="Turmeric Powder">
-            <h3>Premium Nizamabad Turmeric Powder</h3>
-            <p class="unit">1 Kg Pack – ₹350</p>
-            <div class="price">₹350</div>
-          <button class="cart-btn"
+
+<div class="product-card">
+
+<img src="pasupu image.png" alt="Turmeric Powder">
+
+<h3>Premium Nizamabad Turmeric Powder</h3>
+
+<p class="unit">1 Kg Pack – ₹350</p>
+
+<div class="price">₹350</div>
+
+<button class="cart-btn"
+
 onclick="addToCart(
-  'Premium Nizamabad Turmeric Powder',
-  350,
-  'pasupu image.png',
-  '1 Kg Pack'
+'Premium Nizamabad Turmeric Powder',
+350,
+'pasupu image.png',
+'1 Kg Pack'
 )">
+
 Add to Cart
+
 </button>
 
-        </div>
+</div>
 
-        <div class="product-card">
-            <img src="bulbss.png" alt="Turmeric Sticks">
-            <h3>Dry Turmeric Sticks</h3>
-            <p class="unit">1 Kg Pack – ₹350</p>
-            <div class="price">₹350</div>
-        <button class="cart-btn"
+
+
+<div class="product-card">
+
+<img src="bulbss.png" alt="Turmeric Sticks">
+
+<h3>Dry Turmeric Sticks</h3>
+
+<p class="unit">1 Kg Pack – ₹350</p>
+
+<div class="price">₹350</div>
+
+<button class="cart-btn"
+
 onclick="addToCart(
-  'Dry Turmeric Sticks',
-  350,
-  'bulbss.png',
-  '1 Kg Pack'
+'Dry Turmeric Sticks',
+350,
+'bulbss.png',
+'1 Kg Pack'
 )">
+
 Add to Cart
+
 </button>
 
-        </div>
+</div>
 
-    </div>
+
+</div>
+
 </section>
 
+
+
 <!-- ================= FOOTER ================= -->
+
 <footer class="footer">
 
-    <div class="footer-container">
+<div class="footer-container">
 
-        <div class="footer-box">
-            <h3>Mana Nizamabad Pasupu</h3>
-            <p>Your trusted source for premium quality Nizamabad turmeric. Bringing you the finest golden turmeric from our farms.</p>
-        </div>
+<div class="footer-box">
 
-        <div class="footer-box">
-            <h4>Quick Links</h4>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
+<h3>Mana Nizamabad Pasupu</h3>
 
-            <div class="footer-social">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
+<p>Your trusted source for premium quality Nizamabad turmeric.</p>
 
-        <div class="footer-box">
-            <h4>Contact Info</h4>
-            <p>📞 +91 98481 86148</p>
-            <p>✉️ gaddammanichand0@gmail.com</p>
-            <p>📍 Nizamabad, Telangana</p>
-        </div>
+</div>
 
-    </div>
 
-    <div class="footer-bottom">
-        © 2026 Mana Nizamabad Pasupu. All rights reserved.
-        Made with 💛 for turmeric lovers.
-    </div>
+<div class="footer-box">
+
+<h4>Quick Links</h4>
+
+<ul>
+
+<li><a href="#home">Home</a></li>
+
+<li><a href="#products">Products</a></li>
+
+<li><a href="about.html">About Us</a></li>
+
+<li><a href="contact.html">Contact</a></li>
+
+</ul>
+
+<div class="footer-social">
+
+<a href="#"><i class="fab fa-instagram"></i></a>
+
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+
+<a href="#"><i class="fab fa-youtube"></i></a>
+
+</div>
+
+</div>
+
+
+<div class="footer-box">
+
+<h4>Contact Info</h4>
+
+<p>📞 +91 98481 86148</p>
+
+<p>✉️ gaddammanichand0@gmail.com</p>
+
+<p>📍 Nizamabad, Telangana</p>
+
+</div>
+
+</div>
+
+
+<div class="footer-bottom">
+
+© 2026 Mana Nizamabad Pasupu. All rights reserved.
+
+</div>
 
 </footer>
 
+
+
 <!-- ================= CART SIDEBAR ================= -->
+
 <div class="cart-sidebar" id="cartSidebar">
-    <div class="cart-header">
-        <h3>Your Cart</h3>
-        <span class="close-cart" onclick="toggleCart()">×</span>
-    </div>
 
-    <div class="cart-items" id="cartItems"></div>
+<div class="cart-header">
 
-    <div class="cart-footer">
-        <div class="cart-subtotal">
-            Subtotal: ₹<span id="cartSubtotal">0</span>
-        </div>
-<button class="view-cart-btn" onclick="window.location.href='cart.html'">
+<h3>Your Cart</h3>
+
+<span class="close-cart" onclick="toggleCart()">×</span>
+
+</div>
+
+
+<div class="cart-items" id="cartItems"></div>
+
+
+<div class="cart-footer">
+
+<div class="cart-subtotal">
+
+Subtotal: ₹<span id="cartSubtotal">0</span>
+
+</div>
+
+
+<button class="view-cart-btn"
+
+onclick="window.location.href='cart.html'">
+
 View Cart
+
 </button>
 
 
+<button class="checkout-btn" onclick="goToCheckout()">
 
-        <button class="checkout-btn">Checkout</button>
-    </div>
+Checkout
+
+</button>
+
 </div>
 
+</div>
+
+
+
 <script>
+
 let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
-function toggleCart() {
-  document.getElementById("cartSidebar").classList.toggle("open");
+
+function toggleMenu(){
+
+document.getElementById("navMenu").classList.toggle("show");
+
 }
 
-function addToCart(name, price, image, pack) {
-  if (!name || !price) {
-    console.error("Invalid product data");
-    return;
-  }
 
-  if (cart[name]) {
-    cart[name].qty += 1;
-  } else {
-    cart[name] = {
-      name,
-      price,
-      qty: 1,
-      image,
-      pack
-    };
-  }
+function toggleCart(){
 
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartUI();
-  toggleCart();
+document.getElementById("cartSidebar").classList.toggle("open");
+
 }
 
-function updateQty(name, change) {
-  if (!cart[name]) return;
 
-  cart[name].qty += change;
-  if (cart[name].qty <= 0) delete cart[name];
+function addToCart(name,price,image,pack){
 
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartUI();
+if(cart[name]){
+
+cart[name].qty++;
+
 }
 
-function updateCartUI() {
-  const cartItems = document.getElementById("cartItems");
-  const cartCount = document.getElementById("cartCount");
-  const subtotalBox = document.getElementById("cartSubtotal");
+else{
 
-  if (!cartItems) return;
+cart[name]={
 
-  cartItems.innerHTML = "";
-  let subtotal = 0;
-  let count = 0;
+name,
 
-  Object.values(cart).forEach(item => {
-    subtotal += item.price * item.qty;
-    count += item.qty;
+price,
 
-    cartItems.innerHTML += `
-      <div class="cart-item">
-        <img src="${item.image}" class="cart-thumb">
-        <div class="cart-item-info">
-          <strong>${item.name}</strong>
-          <p>₹${item.price}</p>
-        </div>
-        <div class="cart-qty">
-          <button onclick="updateQty('${item.name}', -1)">−</button>
-          <span>${item.qty}</span>
-          <button onclick="updateQty('${item.name}', 1)">+</button>
-        </div>
-      </div>`;
-  });
+image,
 
-  cartCount.innerText = count;
-  subtotalBox.innerText = subtotal;
+pack,
+
+qty:1
+
+};
+
 }
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+updateCartUI();
+
+toggleCart();
+
+}
+
+
+
+function updateQty(name,change){
+
+if(!cart[name]) return;
+
+cart[name].qty += change;
+
+if(cart[name].qty <=0) delete cart[name];
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+updateCartUI();
+
+}
+
+
+
+function updateCartUI(){
+
+const cartItems=document.getElementById("cartItems");
+
+const cartCount=document.getElementById("cartCount");
+
+const subtotalBox=document.getElementById("cartSubtotal");
+
+cartItems.innerHTML="";
+
+let subtotal=0;
+
+let count=0;
+
+
+Object.values(cart).forEach(item=>{
+
+subtotal += item.price * item.qty;
+
+count += item.qty;
+
+
+cartItems.innerHTML += `
+
+<div class="cart-item">
+
+<img src="${item.image}" class="cart-thumb">
+
+<div class="cart-item-info">
+
+<strong>${item.name}</strong>
+
+<p>₹${item.price}</p>
+
+</div>
+
+<div class="cart-qty">
+
+<button onclick="updateQty('${item.name}',-1)">−</button>
+
+<span>${item.qty}</span>
+
+<button onclick="updateQty('${item.name}',1)">+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+cartCount.innerText=count;
+
+subtotalBox.innerText=subtotal;
+
+}
+
+
+function goToCheckout(){
+
+if(Object.keys(cart).length === 0){
+
+alert("Your cart is empty");
+
+return;
+
+}
+
+window.location.href="checkout.html";
+
+}
+
 
 updateCartUI();
 
 </script>
-
 
 
 </body>

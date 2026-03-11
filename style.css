@@ -779,3 +779,140 @@ html {
     align-items: center;
     gap: 20px;
 }
+/* ================= MOBILE RESPONSIVE FIX ================= */
+
+img{
+max-width:100%;
+height:auto;
+}
+
+/* NAVBAR MOBILE */
+@media (max-width:768px){
+
+.navbar{
+padding:12px 20px;
+flex-wrap:wrap;
+}
+
+.logo-area img{
+width:50px;
+}
+
+.logo-area span{
+font-size:1rem;
+}
+
+/* NAV LINKS STACK */
+.nav-links{
+width:100%;
+justify-content:center;
+flex-wrap:wrap;
+margin-top:10px;
+gap:10px;
+}
+
+.nav-links a{
+margin:5px 10px;
+font-size:14px;
+}
+
+/* HERO */
+.hero{
+height:80vh;
+}
+
+.content{
+margin:150px 20px;
+text-align:center;
+}
+
+.content h1{
+font-size:2rem;
+}
+
+/* PROCESS SECTION */
+
+.process-track{
+gap:20px;
+padding-left:20px;
+}
+
+.process-img{
+min-width:95vw;
+height:250px;
+}
+
+/* PRODUCTS */
+
+.products-section{
+padding:60px 20px;
+}
+
+.products-grid{
+grid-template-columns:1fr;
+gap:25px;
+}
+
+.product-card{
+padding:20px;
+}
+
+.product-card img{
+height:180px;
+}
+
+/* ABOUT PAGE */
+
+.about-section{
+padding:50px 20px;
+}
+
+.about-top{
+grid-template-columns:1fr;
+gap:20px;
+}
+
+/* CONTACT */
+
+.contact-section{
+padding:50px 20px;
+}
+
+/* FOOTER */
+
+.footer{
+padding:50px 20px;
+}
+
+.footer-container{
+grid-template-columns:1fr;
+text-align:center;
+}
+
+/* CART SIDEBAR */
+
+.cart-sidebar{
+width:90%;
+}
+
+/* CART ITEMS */
+
+.cart-item{
+flex-direction:row;
+align-items:center;
+gap:10px;
+}
+
+.cart-thumb{
+width:45px;
+height:45px;
+}
+
+/* BUTTONS */
+
+.checkout-btn,
+.view-cart-btn{
+font-size:14px;
+}
+
+}
