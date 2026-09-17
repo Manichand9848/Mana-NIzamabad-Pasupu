@@ -8,8 +8,7 @@ try{
 
 const { amount, name, email, phone } = req.body;
 
-const response = await fetch("https://sandbox.cashfree.com/pg/orders",{
-
+const response = await fetch("https://api.cashfree.com/pg/orders", {
 method:"POST",
 
 headers:{
