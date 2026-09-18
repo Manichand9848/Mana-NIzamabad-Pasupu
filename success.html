@@ -21,6 +21,7 @@ justify-content:center;
 align-items:center;
 min-height:100vh;
 padding:20px;
+box-sizing:border-box;
 }
 
 .box{
@@ -31,11 +32,17 @@ width:100%;
 max-width:500px;
 text-align:center;
 box-shadow:0 10px 30px rgba(0,0,0,0.1);
+box-sizing:border-box;
 }
 
 h1{
 color:#1aa31a;
 margin-bottom:10px;
+font-size:24px;
+}
+
+h1.failed{
+color:#d33;
 }
 
 p{
@@ -50,6 +57,7 @@ font-size:14px;
 
 .order div{
 margin-bottom:10px;
+word-break:break-word;
 }
 
 .products{
@@ -61,19 +69,45 @@ margin-top:10px;
 
 .btn{
 margin-top:25px;
-padding:12px 20px;
+padding:14px 20px;
 background:#ffb703;
 border:none;
 cursor:pointer;
 border-radius:6px;
 font-weight:600;
 width:100%;
+font-size:15px;
 }
 
 .order-id{
 font-size:13px;
 color:#777;
 margin-top:10px;
+word-break:break-all;
+}
+
+.spinner{
+margin:20px auto;
+width:36px;
+height:36px;
+border:4px solid #eee;
+border-top-color:#ffb703;
+border-radius:50%;
+animation:spin 0.8s linear infinite;
+}
+
+@keyframes spin{
+to{ transform:rotate(360deg); }
+}
+
+@media (max-width:480px){
+.box{
+padding:25px 20px;
+border-radius:8px;
+}
+h1{
+font-size:20px;
+}
 }
 
 </style>
@@ -82,113 +116,135 @@ margin-top:10px;
 
 <body>
 
-<div class="box">
+<div class="box" id="statusBox">
 
-<h1>Payment Successful 🎉</h1>
-
-<p>Your order has been placed successfully.</p>
-
-<div class="order" id="orderDetails"></div>
-
-<button class="btn" onclick="goHome()">Back to Home</button>
+<div class="spinner"></div>
+<p>Confirming your payment, please wait…</p>
 
 </div>
-
-<script type="module">
-
-import { db } from "./firebase.js";
-import { addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-let order = JSON.parse(localStorage.getItem("lastOrder"));
-
-/* If no order found */
-
-if(!order){
-document.getElementById("orderDetails").innerHTML = `
-<div>Order information not found.</div>
-`;
-throw new Error("No order data");
-}
-
-/* Generate Order ID */
-
-let orderId = "ORD" + Math.floor(Math.random()*1000000);
-
-/* Build product list */
-
-let productsHTML = "";
-
-order.products.forEach(p=>{
-
-productsHTML += `
-<div>
-${p.name} (Qty: ${p.qty}) - ₹${p.price * p.qty}
-</div>
-`;
-
-});
-
-/* Render Order Details */
-
-document.getElementById("orderDetails").innerHTML = `
-
-<div class="order-id">Order ID: ${orderId}</div>
-
-<div><b>Name:</b> ${order.name}</div>
-
-<div><b>Phone:</b> ${order.phone}</div>
-
-<div><b>Address:</b> ${order.address}</div>
-
-<hr>
-
-<div><b>Products:</b></div>
-
-<div class="products">
-${productsHTML}
-</div>
-
-<hr>
-
-<div><b>Total Paid:</b> ₹${order.total}</div>
-
-`;
-
-/* Save Order in Firebase */
-
-try{
-
-await addDoc(collection(db,"orders"),{
-
-orderId:orderId,
-customerName:order.name,
-phone:order.phone,
-address:order.address,
-products:order.products,
-amount:order.total,
-paymentStatus:"paid",
-createdAt:new Date()
-
-});
-
-}catch(error){
-
-console.error("Firebase order save error:",error);
-
-}
-
-/* Clear cart */
-
-localStorage.removeItem("cart");
-localStorage.removeItem("lastOrder");
-
-</script>
 
 <script>
 
 function goHome(){
 window.location.href="index.html";
 }
+
+function goCart(){
+window.location.href="cart.html";
+}
+
+(async function(){
+
+const box = document.getElementById("statusBox");
+
+const params = new URLSearchParams(window.location.search);
+const orderId = params.get("order_id");
+
+const localOrder = JSON.parse(localStorage.getItem("lastOrder") || "null");
+
+if(!orderId){
+box.innerHTML = `
+<h1 class="failed">Order not found</h1>
+<p>We couldn't find a payment reference for this page. If you completed a payment, please check your email/SMS from Cashfree, or contact us with your payment details.</p>
+<button class="btn" onclick="goHome()">Back to Home</button>
+`;
+return;
+}
+
+try{
+
+const response = await fetch("/api/save-order", {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({
+order_id: orderId,
+name: localOrder ? localOrder.name : "",
+email: localOrder ? localOrder.email : "",
+phone: localOrder ? localOrder.phone : "",
+address: localOrder ? localOrder.address : "",
+products: localOrder ? localOrder.products : [],
+total: localOrder ? localOrder.total : undefined
+})
+});
+
+const data = await response.json();
+
+if(!response.ok || !data.success){
+
+box.innerHTML = `
+<h1 class="failed">Payment not confirmed</h1>
+<p>We checked with Cashfree and this order isn't marked as paid (status: ${data.status || "unknown"}). If money was deducted, it should reflect shortly, or please retry the payment.</p>
+<div class="order-id">Order ID: ${orderId}</div>
+<button class="btn" onclick="goCart()">Back to Cart</button>
+`;
+return;
+
+}
+
+const order = data.order || {};
+
+let productsHTML = "";
+
+(order.products || []).forEach(p=>{
+productsHTML += `
+<div>
+${p.name} (Qty: ${p.qty}) - ₹${p.price * p.qty}
+</div>
+`;
+});
+
+box.innerHTML = `
+
+<h1>Payment Successful 🎉</h1>
+
+<p>Your order has been placed successfully.</p>
+
+<div class="order">
+
+<div class="order-id">Order ID: ${order.orderId || orderId}</div>
+
+<div><b>Name:</b> ${order.customerName || ""}</div>
+
+<div><b>Phone:</b> ${order.phone || ""}</div>
+
+<div><b>Address:</b> ${order.address || ""}</div>
+
+<hr>
+
+<div><b>Products:</b></div>
+
+<div class="products">
+${productsHTML || "<div>No product details available</div>"}
+</div>
+
+<hr>
+
+<div><b>Total Paid:</b> ₹${order.amount}</div>
+
+</div>
+
+<button class="btn" onclick="goHome()">Back to Home</button>
+
+`;
+
+/* Only clear the cart once we have a genuinely confirmed, saved order */
+localStorage.removeItem("cart");
+localStorage.removeItem("lastOrder");
+
+}catch(error){
+
+console.error("Order confirmation error:", error);
+
+box.innerHTML = `
+<h1 class="failed">Something went wrong</h1>
+<p>We couldn't confirm your payment right now. Please don't retry the payment yet — contact us with this Order ID first.</p>
+<div class="order-id">Order ID: ${orderId}</div>
+<button class="btn" onclick="goHome()">Back to Home</button>
+`;
+
+}
+
+})();
 
 </script>
 
